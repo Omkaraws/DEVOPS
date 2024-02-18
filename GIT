@@ -1,0 +1,42 @@
+GIT COMMANDS
+git init:
+This command let us create a new reposiitory.A hidden .git directory is added to the folder.Most of the git command do not work outside.initialized project , so this is the first command you will run in a project
+
+GIT ADD:
+This command add your changes to staging area where you can compare you local version with remote repo code.It is mandatory to stage the code before commit(push to remote) using git add command.
+To stage all files use (.)  git add . in the same repo.
+
+git commit:
+This command saves your changes to your local repository.Everytime you commit you have to add a small message about the changes you made.This will help to keep track of the changes later.
+git comiit -m "this is my 1st version"
+git config --global user.email "emailid"
+git config --global user.name "name"
+
+PUSH CHANGES TO CENTRAL REPO
+1. git remote add origin repourl
+
+PUSH FROM LOCAL REPO TO CENTRAL REPO
+git push:> git push -u origin master(BRANCH NAME)
+This command push your changes from local repository to your remote repository. One can only push the committed changes.
+
+IF YOU WANT TO GET A CODE FROM DIVISION BRANCH TO YOUR MAIN BRANCH
+1. git merge 2. git rebase. 3. git cherry-pick
+
+git merge: it is a way of combining changes from one branch (SOurce br.) into another branch( target br)
+git rebase: it is a way of moving the changes from one branch to another branch
+git cherry-pick: it is easy whern there are one or two commits.
+
+BRANCH: seprate or isolated development activity
+
+commands for a BRANCH
+git checkout: This command helps to switch to an existing branch or create a new branch.
+
+Q. WHY WE CREATE A BRANCH?
+ANS.>> instead of making the changes directly to your existing branch i.e. by default master/main branch, so you will create a new branch and you start a developmet on this new branch.
+you created a branch beacause by making sure that any new changes like a few changes or braking changes that you are adding to your existing application is not affecting the existing functionality.
+
+FORK: you create a entire copy of your original source
+clone: download a spacific repo.
+
+git diff: telling you to exact change that are
+git log: for checking previous version/code/show commit logs 
