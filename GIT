@@ -40,3 +40,37 @@ clone: download a spacific repo.
 
 git diff: telling you to exact change that are
 git log: for checking previous version/code/show commit logs 
+
+What are the stages in Git?
+There are total of 4 stages in Git
+1. Workspace: - It is the place where we can create files physically and modify. Being a Git user, we work in this work space.
+2. Staging area/Indexing area: - In this area, Git takes a snapshot for every version. It is a buffer zone between workspace and local repository. We can’t see this region because it is virtual.
+3. Local repository: - It is the place where Git stores all commit locally. It is a hidden directory so that no one can delete it accidentally. Every commit will have unique commit ID.
+4. Central repository: - It is the place where Git stores all commit centrally. It belongs to everyone who is working in your project. Git Hub is one of the central repositories. Used for storing the code and sharing the code to others in the team.
+
+12. What is Git stash?
+We create multiple branches to work simultaneously on multiple features. But to work on multiple tasks simultaneously in one branch (i.e. on one feature), 
+we use git stash. Stash is a temporary repository where we can store our content and bring it back whenever we want to continue with our work with that stored content.
+It removes content inside file from working directory and puts in stashing store and gives clean working directory so that we can start new work freshly. 
+Later on you can bring back that stashed items to working directory and can resume your work on that file. Git stash applicable to modified files. Not new files. 
+Once we finish our work, we can remove all stashed items form stash repository.
+
+What is Git Reset?
+Git Reset command is used to remove changes form staging area. This is bringing back file form staging area to work directory. We use this command before commit
+
+
+What is Git Revert?
+Git Revert command is used to remove changes from all 3 stages (work directory, staging area and local repository). We use this command after commit. Sometimes, we commit accidentally and later on we realize that
+we shouldn’t have done that. For this we use Git revert. This operation will generate new commit ID with some meaningful message to ignore previous commit where mistake is there.
+But, here we can’t completely eliminate the commit where mistake is there. Because Git tracks each and every change.
+
+
+
+
+
+
+
+
+
+
+
