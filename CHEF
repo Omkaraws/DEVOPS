@@ -1,0 +1,114 @@
+## What is the architecture of Chef? 
+Chef is an administration tool. In this we have total 3 stages. 1. Chef Workstation (It is the place where we write code) 2. Chef Server (It is the place where we store code) 
+3. Chef Node (It is the place where we apply code) We need to establish communication among workstation, server and nodes. You can have any no of nodes. There is no limit. Chef can manage any no of nodes effectively. 
+
+## Components of Chef? 
+Chef Workstation: Where you write the code 
+Chef Server: Where you upload the code 
+Chef Node: Where you apply the code 
+Knife: Tool to establish communication among workstation, server & node. 
+Chef-client: Tool runs on every chef node to pull code from chef server 
+Ohai: Maintains current state information of chef node (System Discovery Tool) 
+Idempotency: Tracking the state of system resources to ensure that the changes should not re-apply repeatedly. 
+Chef Supermarket: Where you get custom code 
+
+34. How does Chef Works? 
+We need to install chef package in workstation, server and nodes. We create cookbook in workstation. Inside cookbook, there will be a default recipe where you write code in ruby script. 
+You can create any no of recipes. There is no limit. After writing code in recipe, we upload whole cookbook to chef server. Chef server acts as central hub storing code. 
+Then, we need to add this cookbook’s recipe to nodes run-list. Chef-client tool will be there in each and every chef node. It runs frequently. 
+Chef-client comes to chef server and take that code and applies that code in node. This is how code will be converted into infrastructure. 
+
+35. What is Idempotency? 
+It is unique feature in all configuration management tools. It ensures that changes should not re-apply repeatedly. Once chef-client converted code into Infrastructure, 
+then even chef-client runs again, it will not take any action. It won’t do the same task again and again. If any new changes are there in that code, then only chef-client is going to take action.
+So it doesn’t make any difference ever if you run chef-client any no of times. So tracking the system details to not to reapply changes again and again, we call Idempotency. 
+
+36. What is Ohai and how does it works?? 
+Ohai we call “System Discovery Tool”. It stores system information. It captures each and every minute details of system and updates it then and there if any new changes are there.
+Whenever chef-client converts code in infrastructure in node, immediately Ohai store will be updated. Next time onwards, before chef-client runs, 
+it verifies in Ohai store to know about current state of information. So chef-client will come to know the current state of server. Then chef-client acts accordingly.
+If new changes are there, then only it will take action. If there are no new changes, then it won’t take any action. Ohai tool helps in achieving this. 
+
+37. How many types of chef server? 
+Total there are 3 ways through which we can manage chef server. 1. Directly we can take chef server from Chef Company itself. In this case, everything will be managed by Chef Company. 
+You will get support from chef. This type of server we call Managed/Hosted chef. This is completely Graphical User Interface (GUI). It’s not free. 
+We need to pay to Chef Company after exceeding free tier limit. 2. We can launch one server and we need to install chef server package. It is completely free package. 
+It’s GUI. 3. We can launch one server and we need to install chef server package. It is completely free package. It’s CLI (Command Line Interface). 
+
+38. What is there inside cookbook?? 
+Below mentioned files and folders will be there inside cookbook when you first create it 
+Chefignore: like .gitignore (to ignore files and folders) 
+Kitchen.yml: for testing of cookbook 
+Metadata.rb: name, author, version…. etc of cookbook Readme.md: information about usage of cookbook Recipe: It is a file where you write code Spec: for unit test Test: for integration test 
+
+39. What is Attributes concept in chef? 
+Sometimes we might need to deploy web applications to in nodes and for that we need to know some host specific details of each server like IP Address, Host name ….. etc.
+Because we need to mention that in configuration files of each server. These files we call as Configuration files. This information will be vary from system to system.
+These host specific details that we mention in Configuration files,we call “Attributes”. Chef-client tool gathers these Attributes from Ohai store and puts in configuration files. 
+Instead of hard coding these attributes, we mention as variables so that every time, file will be updated with latest details of their respective nodes. 
+
+40. What is Run-list in Chef? 
+This is an ordered list of recipes that we are going to apply to nodes. We mention all recipes in cookbook and then we upload that cookbook to chef server. 
+Then, we attach all recipes to nodes run-list in sequence order. When chef-client runs, it applies all recipes to nodes in the same order 
+whatever the order you mention in run-list. Because sometimes order is important especially when we deal with dependent recipes. 
+
+41. What is bootstrap? 
+It is the process of adding chef node to chef server or we can call, bringing any machine into chef environment. In this bootstrapping process total three action will be performed automatically. 
+1. Node gets connected to chef server. 2. Chef server will install chef package in chef node. 3. Cookbooks will be applied to chef node. 
+It is only one time effort. As and when we purchase any new machine in company, immediately we add that server to chef server. At a time, we can bootstrap one machine. 
+We can’t bootstrap multiple machines at a time. 
+
+42. What is the workflow of Chef? 
+We connect chef workstation, chef server and chef node with each other. After that, we create cookbook in chef workstation and inside that cookbook, 
+we write code in recipe w.r.t. the infrastructure to be created. Then we upload entire cookbook to chef server and attach that cookbook’s recipe to nodes run-list.
+Now we automate chef-client which will be there in all chef nodes. Chef-client runs frequently towards chef server for new code. 
+So chef-client will get that code from server and finally applies to chef node. This is how, code is converted into infrastructure. 
+If no changes are there in code, even if chef-client runs any no of time, it won’t take any action until it finds some changes in code. This is what we call Idempotency. 
+
+43. How does we connect Chef Workstation to Chef Server? 
+First we download started kit from chef server. This will be downloaded in the form of zip file. If we extract this zip file, we will get chef-repo folder.
+This chef-repo folder we need to place in chef workstation. Inside chef-repo folder, we can see total three folders. They are .chef, cookbooks and roles. Out of these three, 
+.chef folder is responsible to establish communication between chef server and chef workstation. Because, inside .chef folder, we can see two files. 
+They are knife.rb and organization.pem. Inside kinfe.rb, there will be the url (address) of chef server. Because of this url, communication will be established between chef server and chef workstation. 
+This is how we connect Chef Workstation to Chef Server. 
+
+44. How does the chef-client runs automatically? 
+By default, chef-client runs manually. So we need to automate this manually. For this, we use “cron tool” which is the default tool in all Linux machines use to 
+schedule tasks to be executed automatically at frequent intervals. So in this “crontab” file, we give chef-client command and we need to set the timing as per our requirement. 
+Then onwards chef-client runs automatically after every frequent intervals. It is only one time effort. When we purchase any new server in company, along with bootstrap, we automate chef-client then and there. 
+
+45. What is chef supermarket? 
+Chef supermarket is the place where we get custom cookbooks. Every time we need not to create cookbooks and need not to write code from scratch. We can go with custom cookbooks which are available in chef supermarket being provided by chef organization and community. We can download these cookbooks and modify as per our needs. We get almost each and every cookbook from chef supermarket. They are safe to use. MANAS JHA Follow me on-LINKEDIN WhatsApp Link 
+9 | Link to Join Our WhatsApp group 
+
+46. What is wrapper cookbook? 
+Either we can download those chef supermarket cookbooks or without downloading, we can call these supermarket cookbooks during run time so that every time we get updates automatically 
+for that cookbook if any new updates are there. Here, we use our own cookbook to call chef supermarket cookbook. This process of calling cookbook by using another cookbook, we call wrapper cookbook. 
+Especially, we use this concept to automate chef-client. 
+
+47. What is “roles” in chef? 
+Roles are nothing but a Custom run-list. We create role & upload to chef server & assign them to nodes. If we have so many nodes, need to add cookbook to run-list of all those nodes, 
+it is very difficult to attach to all nodes run-list. So, we create role & attach that role to all those nodes once. Next time onwards, add cookbook to that role. Automatically, 
+that cookbook will be attached to all those nodes. So role is one time effort. Instead of adding cookbooks to each & every node’s run-list always, just create a role & attach that role to nodes. 
+When we add cookbook to that role, it will be automatically applied to all nodes those assigned with that role. 
+
+48. What is include_recipe in chef? 
+By default, we can call one recipe at a time in one cookbook. But if you want to call multiple recipes from same cookbook, we use include_recipe concept.
+Here, we take default recipe and we mention all recipes to be called in this default recipe in an order. If we call default recipe, automatically default recipe will call all other recipes
+which are there inside default recipe. By using one recipe, we can call any no of recipes. This process of calling one recipe by using other recipe, we call as include_recipe. 
+Here condition is we can call recipes from same cookbook, but not from different cookbooks. 
+
+
+49. How to deploy a web server by using chef? 
+package ‘httpd’ do action :install end 
+file ‘/var/www/html/index.html’ do content ‘Hello Dear Students!!’ action :create end 
+service ‘httpd’ do action [ :enable, :start ] end 
+
+50. How to write ruby code to create file, directory? 
+file ‘/myfile’ do content ‘This is my second file’ action :create owner ‘root’ group ‘root’ end 
+directory ‘/mydir’ do action :create owner ‘root’ group ‘root’ end 
+
+51. How to write ruby code to create user, group and install package? 
+user ‘user1’ do action: create end 
+group ‘group1’ do action :create members ‘user1’ append true end 
+package ‘httpd’ do action: install end
